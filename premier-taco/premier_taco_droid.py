@@ -49,7 +49,7 @@ class ResNetEncoder(nn.Module):
         super().__init__()
         assert len(obs_shape) == 3
 
-        resnet = models.resnet18(weights=None)
+        resnet = models.resnet50(weights=None)
         resnet.conv1 = nn.Conv2d(obs_shape[0], 64, 7, stride=2, padding=3, bias=False)
         self.backbone = nn.Sequential(*list(resnet.children())[:-1])
 
