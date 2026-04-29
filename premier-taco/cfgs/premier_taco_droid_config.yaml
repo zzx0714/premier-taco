@@ -1,0 +1,49 @@
+defaults:
+  - _self_
+
+### DROID Dataset
+offline_data_dir: /data3/v-jepa/pre-taco/droid_lerobot_dataset
+split_file: /data3/v-jepa/pre-taco/1w2splits.json
+image_size: 256
+stride: 5
+nstep: 3
+window_size: 5
+
+### Replay Buffer
+num_chunks: 24
+steps_per_chunk: 375
+
+### Training
+batch_size: 256
+num_epochs: 50
+steps_per_epoch: 7500
+save_every_n_epochs: 5
+val_steps: 200
+
+### Misc
+seed: 1
+device: cuda
+use_tb: false
+resume_from: null
+
+### Agent
+target: premier_taco_droid.PremierTACORepresentation
+lr: 1e-4
+feature_dim: 512
+action_dim: 7
+exp_name: default
+
+agent:
+  _target_: ${target}
+  obs_shape: ???
+  action_shapes: ${action_dim}
+  device: ${device}
+  lr: ${lr}
+  hidden_dim: 1024
+  feature_dim: ${feature_dim}
+  nstep: ${nstep}
+
+
+hydra:
+  run:
+    dir: ./exp_local/${exp_name}
